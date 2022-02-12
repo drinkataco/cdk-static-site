@@ -1,4 +1,6 @@
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
+import {
+  CfnOutput, Construct, Stack, StackProps,
+} from '@aws-cdk/core';
 import {
   AllowedMethods,
   Distribution,
@@ -109,14 +111,29 @@ class CloudfrontStack extends Stack {
     // Iinitialise DNS (if applicable)
     if (this.props.dns) {
       this.initialiseDns();
+
+      new CfnOutput(this, `${this.id}-output-domain-name`, {
+        value: this.getDomainName(),
+      });
     }
 
     // Create Cloudfront Distribution
     this.distribution = this.createDistribution();
 
+    new CfnOutput(this, `${this.id}-output-distribution-id`, {
+      value: this.getDistribution().distributionId,
+    });
+    new CfnOutput(this, `${this.id}-output-distribution-domain-name`, {
+      value: this.getDistribution().distributionDomainName,
+    });
+
     // Create DNS records to map cloudfront distribution URL to DNS Record
     if (this.props.dns) {
       this.createDnsRecords();
+
+      new CfnOutput(this, `${this.id}-output-certificate`, {
+        value: this.getCertificate().certificateArn,
+      });
     }
   }
 
@@ -249,7 +266,9 @@ class CloudfrontStack extends Stack {
     // Set full domain name
     // TODO: handle no subdomain
     this.domainName = dns.hostedZoneDomainName;
-    if (dns.subdomain) this.domainName = `${dns.subdomain}.${dns.hostedZoneDomainName}`;
+    if (dns.subdomain) {
+      this.domainName = `${dns.subdomain}.${dns.hostedZoneDomainName}`;
+    }
 
     // If an ARN is set, simple. Let's just fetch that certificate.
     // ELSE let's create the certificate and validate with DNS
