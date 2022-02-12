@@ -1,7 +1,6 @@
 import {
   AllowedMethods,
   PriceClass,
-  SecurityPolicyProtocol,
 } from '@aws-cdk/aws-cloudfront';
 import * as dotenv from 'dotenv';
 
@@ -76,10 +75,3 @@ export const CLOUDFRONT_PRICE_CLASS: PriceClass =
   ];
 
 export const CLOUDFRONT_ROOT_OBJECT = process.env.CLOUDFRONT_ROOT_OBJECT || 'index.html';
-
-export const CLOUDFRONT_SECURITY_POLICY: SecurityPolicyProtocol =
-  SecurityPolicyProtocol[
-    (process.env
-      .CLOUDFRONT_SECURITY_POLICY as keyof typeof SecurityPolicyProtocol) ||
-      'TLS_V1_2_2021'
-  ];

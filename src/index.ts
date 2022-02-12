@@ -58,5 +58,4 @@ new CloudfrontStack(app, `${G.APP_NAME}-cloudfront`, {
   errorResponses: G.CLOUDFRONT_ERROR_RESPONSES,
   originAccessIdentity: S3.getOriginAccessIdentity(),
   priceClass: G.CLOUDFRONT_PRICE_CLASS,
-  securityProtocolMinimum: G.CLOUDFRONT_SECURITY_POLICY,
 });

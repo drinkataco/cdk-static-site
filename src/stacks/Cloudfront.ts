@@ -177,8 +177,6 @@ class CloudfrontStack extends Stack {
       enableLogging: this.props.enableLogging,
       /** Objects to respond with on error codes */
       errorResponses,
-      /** Minimum security protocol */
-      minimumProtocolVersion: this.props.securityProtocolMinimum,
       /**
        * The Price Class for the distribution. By default deployed to ALL edge locations, but
        *  we might want to cheap on this

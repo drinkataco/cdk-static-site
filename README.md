@@ -48,7 +48,6 @@ However, you can configure a lot more options:
 * `CLOUDFRONT_LOGGING` _(default: 0)_ - a numerical value (0 for false, 1 for true) to indicate whether logging should be enabled for cloudfront
 * `CLOUDFRONT_PRICE_CLASS` _(default: ALL)_ - Price Class of Cloudfront Distribution. Enum value defined [here](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_cloudfront.PriceClass.html)
 * `CLOUDFRONT_ROOT_OBJECT` _(default: index.html)_ - default root object of distribution
-* `CLOUDFRONT_SECURITY_POLICY` - Security policy of HTTPS. Enum value defined [here](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_cloudfront.SecurityPolicyProtocol.html)
 
 ##### Route53 and Certificate Manager
 
