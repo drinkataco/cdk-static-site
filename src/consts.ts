@@ -37,8 +37,7 @@ const stringToObject = <T extends object>(
 //
 export const APP_NAME: string = process.env.APP_NAME as string;
 
-// turn tag1=val1,tag2=val2 to an object
-export const TAGS: T.ITags = stringToObject(process.env.TAGS || '');
+export const TAGS: T.Tags = stringToObject(process.env.TAGS || '');
 
 //
 // Route 53/Certificate Config

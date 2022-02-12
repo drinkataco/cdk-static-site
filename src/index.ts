@@ -1,7 +1,7 @@
 import { App, StackProps, Tags } from '@aws-cdk/core';
 
 import * as G from './consts';
-import { ITags, CloudfrontDns } from './types';
+import { Tags as TagMap, CloudfrontDns } from './types';
 import CloudfrontStack from './stacks/Cloudfront';
 import S3Stack from './stacks/S3';
 
@@ -16,7 +16,7 @@ const defaultProps: StackProps = {
 };
 
 // Attach default tags to all app resources
-const defaultTags: ITags = {
+const defaultTags: TagMap = {
   AppName: G.APP_NAME,
   DateModified: new Date().toISOString(),
   ...G.TAGS,

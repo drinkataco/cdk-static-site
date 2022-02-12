@@ -1,5 +1,3 @@
-import * as T from './types';
-
 /* eslint-disable no-unused-vars */
 declare global {
   namespace NodeJS {
@@ -10,13 +8,13 @@ declare global {
       S3_CONTENT_PATH?: string;
       S3_FORCE_REMOVE?: number;
       CLOUDFRONT_ERROR_RESPONSES: string;
-      CLOUDFRONT_PRICE_CLASS?: T.PriceClass;
+      CLOUDFRONT_PRICE_CLASS?: string;
       CLOUDFRONT_ROOT_OBJECT?: string;
-      CLOUDFRONT_SECURITY_POLICY?: T.SecurityPolicyProtocol;
+      CLOUDFRONT_SECURITY_POLICY?: string;
       CLOUDFRONT_LOGGING?: number;
       CLOUDFRONT_GEO_ALLOWLIST?: string;
       CLOUDFRONT_GEO_DENYLIST?: string;
-      CLOUDFRONT_ALLOWED_METHODS?: T.AllowedMethods;
+      CLOUDFRONT_ALLOWED_METHODS?: string;
       CERTIFICATE_ARN?: string,
       ROUTE53_HOSTED_ZONE_DOMAIN?: string;
       ROUTE53_SUBDOMAIN?: string;
