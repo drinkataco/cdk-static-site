@@ -22,7 +22,7 @@ const defaultTags: ITags = {
   ...G.TAGS,
 };
 
-Object.keys(defaultTags).forEach((tag) => {
+Object.keys(defaultTags).forEach((tag: string) => {
   Tags.of(app).add(tag, defaultTags[tag]);
 });
 

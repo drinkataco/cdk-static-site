@@ -10,7 +10,7 @@ import {
 } from '@aws-cdk/aws-cloudfront';
 import {
   Certificate,
-  CertificateValidation,
+  DnsValidatedCertificate,
   ICertificate,
 } from '@aws-cdk/aws-certificatemanager';
 import { S3Origin } from '@aws-cdk/aws-cloudfront-origins';
@@ -30,13 +30,13 @@ import * as T from '../types';
  * Configurable options for stack as properties
  */
 interface CloudfrontStackProps extends StackProps {
-  allowedMethods?: AllowedMethods,
+  allowedMethods?: AllowedMethods;
   /** The bucket we have previously created */
   bucket: Bucket;
   /**
    * DNS information if setting up a custom domain
    * This could include hosted zone, certificate, and dns record information
-  */
+   */
   dns?: T.CloudfrontDns;
   /** Default root object */
   defaultRootObject?: string;
@@ -123,11 +123,10 @@ class CloudfrontStack extends Stack {
    * Create a certificate and validate with DNS within the correct hosted zone
    */
   private createCertificate(): ICertificate {
-    return new Certificate(this, `${this.id}-certificate`, {
+    return new DnsValidatedCertificate(this, `${this.id}-certificate`, {
       domainName: this.getDomainName(),
-      validation: CertificateValidation.fromDns(
-        this.getHostedZone() as IHostedZone,
-      ),
+      hostedZone: this.getHostedZone(),
+      region: 'us-east-1',
     });
   }
 
@@ -170,7 +169,7 @@ class CloudfrontStack extends Stack {
           originAccessIdentity: this.props.originAccessIdentity,
         }),
         /** Always redirect to https */
-        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS
+        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
       /** Any domain name aliases we want to use */
       domainNames: this.domainName ? [this.domainName] : undefined,
@@ -201,7 +200,7 @@ class CloudfrontStack extends Stack {
       target,
       zone: this.getHostedZone(),
     });
-    
+
     new AaaaRecord(this, `${this.id}-aaaa-record`, {
       recordName: this.getDomainName(),
       target,
@@ -251,16 +250,17 @@ class CloudfrontStack extends Stack {
     // Set full domain name
     // TODO: handle no subdomain
     this.domainName = dns.hostedZoneDomainName;
-    if (dns.subdomain) this.domainName = `${dns.subdomain}.${dns.hostedZoneDomainName}`;
+    if (dns.subdomain)
+      this.domainName = `${dns.subdomain}.${dns.hostedZoneDomainName}`;
 
     // If an ARN is set, simple. Let's just fetch that certificate.
     // ELSE let's create the certificate and validate with DNS
     this.certificate = dns.certificateArn
       ? Certificate.fromCertificateArn(
-        this,
-        `${this.id}-certificate`,
-        dns.certificateArn,
-      )
+          this,
+          `${this.id}-certificate`,
+          dns.certificateArn,
+        )
       : this.createCertificate();
   }
 }

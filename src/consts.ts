@@ -24,11 +24,13 @@ const stringToObject = <T extends object>(
   values?: string,
   objectDelimiter = ',',
   kvDelimiter = '=',
-): T =>
-  (values || '').split(objectDelimiter).reduce((acc: T, kv: string) => {
+): T => {
+  if (!values) return {} as T;
+  return (values || '').split(objectDelimiter).reduce((acc: T, kv: string) => {
     const record = kv.split(kvDelimiter);
     return { ...acc, [record[0]]: record[1] };
   }, {} as T);
+}
 
 //
 // METADATA
@@ -71,10 +73,10 @@ export const CLOUDFRONT_LOGGING = !!process.env.CLOUDFRONT_LOGGING;
 
 export const CLOUDFRONT_PRICE_CLASS: PriceClass =
   PriceClass[
-    (process.env.CLOUDFRONT_PRICE_CLASS as keyof typeof PriceClass) || 'ALL'
+    (process.env.CLOUDFRONT_PRICE_CLASS as keyof typeof PriceClass) || 'PRICE_CLASS_ALL'
   ];
 
-export const CLOUDFRONT_ROOT_OBJECT = process.env.CLOUDFRONT_ROOT_OBJECT;
+export const CLOUDFRONT_ROOT_OBJECT = process.env.CLOUDFRONT_ROOT_OBJECT || 'index.html';
 
 export const CLOUDFRONT_SECURITY_POLICY: SecurityPolicyProtocol =
   SecurityPolicyProtocol[
