@@ -49,7 +49,7 @@ export const ROUTE53_SUBDOMAIN = process.env.ROUTE53_SUBDOMAIN;
 //
 // S3 Config
 //
-export const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME || `${process.env.APP_NAME}-bucket`;
+export const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
 export const S3_CONTENT_PATH = process.env.S3_CONTENT_PATH || '';
 

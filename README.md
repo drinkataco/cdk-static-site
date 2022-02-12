@@ -15,12 +15,11 @@ See: [AWS Cloud Development Kit (CDK)](https://github.com/aws/aws-cdk)
 To get started you must set up a `.env` file. You can copy the [template](.env.example) and set out the minimum request to get started:
 
 * `APP_NAME` - This is the name of your app and cloudformation template prefixes
-* `S3_BUCKET_NAME` - a unique name for a S3 bucket to be provisioned
 * `S3_CONTENT_PATH` - local path to content to place on S3 and serve via Cloudfront
 * `ROUTE53_HOSTED_ZONE_DOMAIN` - _(optional)_ the domain of hosted zone which you you want to attach an alias to.
-* `ROUTE53_SUBDOMAIN` _(optional)_ - the subdomain (record name) if you don't want to use the root of the hosted zone domain
+* `ROUTE53_SUBDOMAIN` _(optional)_ - the subdomain (record name) if you don't want to use the root of the hosted zone domain. This must already exist in Route53!
 
-That's as little as **three** required variables (or **four** for route53 support) to get started.
+That's as little as **two** required variables (or **three** for route53 support) to get started.
 
 Make sure you have your AWS credentials set locally, such as an [AWS_PROFILE](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) environment variable so that you can publish to your AWS account.
 
@@ -34,6 +33,7 @@ However, you can configure a lot more options:
 
 #### S3
 
+* `S3_BUCKET_NAME` - a unique name for a S3 bucket to be provisioned
 * `S3_FORCE_REMOVE` _(default: 0)_ - a numerical value (0 for false, 1 for true) to indicate whether the S3 bucket should be force emptied and deleted when stacks are destroyed. You will loose your data in this bucket if set to `1`.
 
 #### Cloudfront

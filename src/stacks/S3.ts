@@ -14,7 +14,7 @@ import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
  */
 interface S3StackProps extends StackProps {
   /** The name of our S3 Bucket */
-  bucketName: string;
+  bucketName?: string;
   /**
    * The source information of our bucket.
    */
@@ -79,7 +79,7 @@ class S3Stack extends Stack {
    * The bucket will NOT be publically accessible as per cloudformation defaults
    */
   private createBucket(): Bucket {
-    const bucket = new Bucket(this, this.props.bucketName, {
+    const bucket = new Bucket(this, `${this.id}-bucket`, {
       /** The unique S3 bucket name */
       bucketName: this.props.bucketName,
       /**
