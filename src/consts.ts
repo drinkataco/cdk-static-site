@@ -28,7 +28,7 @@ const stringToObject = <T extends object>(
     const record = kv.split(kvDelimiter);
     return { ...acc, [record[0]]: record[1] };
   }, {} as T);
-}
+};
 
 //
 // METADATA
@@ -42,18 +42,16 @@ export const TAGS: T.Tags = stringToObject(process.env.TAGS || '');
 //
 export const CERTIFICATE_ARN = process.env.CERTIFICATE_ARN;
 
-export const ROUTE53_HOSTED_ZONE_DOMAIN =
-  process.env.ROUTE53_HOSTED_ZONE_DOMAIN;
+export const ROUTE53_HOSTED_ZONE_DOMAIN = process.env.ROUTE53_HOSTED_ZONE_DOMAIN;
 
 export const ROUTE53_SUBDOMAIN = process.env.ROUTE53_SUBDOMAIN;
 
 //
 // S3 Config
 //
-export const S3_BUCKET_NAME =
-  process.env.S3_BUCKET_NAME || `${process.env.APP_NAME}-bucket`;
+export const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME || `${process.env.APP_NAME}-bucket`;
 
-export const S3_CONTENT_PATH = process.env.S3_CONTENT_PATH;
+export const S3_CONTENT_PATH = process.env.S3_CONTENT_PATH || '';
 
 export const S3_FORCE_REMOVE = !!process.env.S3_FORCE_REMOVE;
 
@@ -68,9 +66,8 @@ export const CLOUDFRONT_ERROR_RESPONSES: T.HttpErrorObject = stringToObject(
 
 export const CLOUDFRONT_LOGGING = !!process.env.CLOUDFRONT_LOGGING;
 
-export const CLOUDFRONT_PRICE_CLASS: PriceClass =
-  PriceClass[
-    (process.env.CLOUDFRONT_PRICE_CLASS as keyof typeof PriceClass) || 'PRICE_CLASS_ALL'
-  ];
+export const CLOUDFRONT_PRICE_CLASS: PriceClass = PriceClass[
+  (process.env.CLOUDFRONT_PRICE_CLASS as keyof typeof PriceClass) || 'PRICE_CLASS_ALL'
+];
 
 export const CLOUDFRONT_ROOT_OBJECT = process.env.CLOUDFRONT_ROOT_OBJECT || 'index.html';

@@ -22,7 +22,7 @@
     ],
     "jest/no-hooks": "off",
     "no-new": "off",
-    "operator-linebreak": "after",
+    "operator-linebreak": ["error", "before", { "overrides": { "=": "none" } }],
     "prefer-destructuring": "off"
   },
   "ignorePatterns": ["node_modules/", "cdk.out/"]

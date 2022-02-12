@@ -249,17 +249,16 @@ class CloudfrontStack extends Stack {
     // Set full domain name
     // TODO: handle no subdomain
     this.domainName = dns.hostedZoneDomainName;
-    if (dns.subdomain)
-      this.domainName = `${dns.subdomain}.${dns.hostedZoneDomainName}`;
+    if (dns.subdomain) this.domainName = `${dns.subdomain}.${dns.hostedZoneDomainName}`;
 
     // If an ARN is set, simple. Let's just fetch that certificate.
     // ELSE let's create the certificate and validate with DNS
     this.certificate = dns.certificateArn
       ? Certificate.fromCertificateArn(
-          this,
-          `${this.id}-certificate`,
-          dns.certificateArn,
-        )
+        this,
+        `${this.id}-certificate`,
+        dns.certificateArn,
+      )
       : this.createCertificate();
   }
 }

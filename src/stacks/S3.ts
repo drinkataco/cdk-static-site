@@ -1,4 +1,5 @@
 import {
+  CfnOutput,
   Construct,
   Stack,
   StackProps,
@@ -91,6 +92,8 @@ class S3Stack extends Stack {
 
     bucket.grantRead(this.getOriginAccessIdentity());
 
+    new CfnOutput(this, `${this.id}-output-s3-bucket`, { value: bucket.bucketName });
+
     return bucket;
   }
 
@@ -98,9 +101,13 @@ class S3Stack extends Stack {
    * Create Origin Access Identity for S3 Bucket and Cloudfront
    */
   private createOriginAccessIdentity(): OriginAccessIdentity {
-    return new OriginAccessIdentity(this, this.id, {
+    const oai = new OriginAccessIdentity(this, this.id, {
       comment: `OriginAccessIdentity for S3 Bucket '${this.props.bucketName}'`,
     });
+
+    new CfnOutput(this, `${this.id}-output-s3-bucket`, { value: oai.originAccessIdentityName });
+
+    return oai;
   }
 
   /**

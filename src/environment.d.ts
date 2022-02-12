@@ -5,7 +5,7 @@ declare global {
       APP_NAME: string;
       TAGS?: string;
       S3_BUCKET_NAME: string;
-      S3_CONTENT_PATH?: string;
+      S3_CONTENT_PATH: string;
       S3_FORCE_REMOVE?: number;
       CLOUDFRONT_ERROR_RESPONSES: string;
       CLOUDFRONT_PRICE_CLASS?: string;
