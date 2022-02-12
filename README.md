@@ -17,7 +17,7 @@ To get started you must set up a `.env` file. You can copy the [template](.env.e
 * `APP_NAME` - This is the name of your app and cloudformation template prefixes
 * `S3_BUCKET_NAME` - a unique name for a S3 bucket to be provisioned
 * `S3_CONTENT_PATH` - local path to content to place on S3 and serve via Cloudfront
-* `ROUTE53_HOSTED_ZONE_DOMAIN` - _optional_ the domain of hosted zone which you you want to attach an alias to.
+* `ROUTE53_HOSTED_ZONE_DOMAIN` - _(optional)_ the domain of hosted zone which you you want to attach an alias to.
 * `ROUTE53_SUBDOMAIN` _(optional)_ - the subdomain (record name) if you don't want to use the root of the hosted zone domain
 
 That's as little as **three** required variables (or **four** for route53 support) to get started.
@@ -28,23 +28,20 @@ Then run `npm run cdk:deploy`! Alternatively to destroy, run `npm run cdk:destro
 
 However, you can configure a lot more options:
 
-#### Extended Configuration
-
-##### Metadata
+#### Metadata
 
 * `TAGS` - define tags for every resources, with keys and values separated by `=` and tags separated by `,`, for example, `Author=Bob Dylan,Project=test`.
 
-##### S3
+#### S3
 
 * `S3_FORCE_REMOVE` _(default: 0)_ - a numerical value (0 for false, 1 for true) to indicate whether the S3 bucket should be force emptied and deleted when stacks are destroyed. You will loose your data in this bucket if set to `1`.
 
-##### Cloudfront
+#### Cloudfront
 
 * `CLOUDFRONT_ALLOWED_METHODS` _(default: ALLOW_ALL)_ - allowed HTTP methods. Enum value defined [here](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_cloudfront.AllowedMethods.html
 )
 * `CLOUDFRONT_ERROR_RESPONSES` - HTTP error codes and the objects they map to for default responses, for example `404=/404.html,500=error.html`
-* `CLOUDFRONT_GEO_ALLOWLIST` TODO
-* `CLOUDFRONT_GEO_DENYLIST` TODO
+* `CLOUDFRONT_GEO_DENYLIST` - Comma separated values of countries to block (using ISO 3166-1-alpha-2). For example, `CN,RU`
 * `CLOUDFRONT_LOGGING` _(default: 0)_ - a numerical value (0 for false, 1 for true) to indicate whether logging should be enabled for cloudfront
 * `CLOUDFRONT_PRICE_CLASS` _(default: ALL)_ - Price Class of Cloudfront Distribution. Enum value defined [here](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_cloudfront.PriceClass.html)
 * `CLOUDFRONT_ROOT_OBJECT` _(default: index.html)_ - default root object of distribution
@@ -59,8 +56,9 @@ This repository is a working progress. Left to do before release is:
 
 - [x] Test env vars
 - [x] README
-- [ ] Cleanup (itags, types needed for enums? remove zod comments. address all todo)
-- [ ] Add geo restrictions and http method
+- [x] Cleanup (itags, types needed for enums? remove zod comments. address all todo)
+- [x] Add geo restrictions and http method
+- [ ] s3 bucket name not required
 - [ ] Allow no subdomain (just attach to root hosted zone if none supplied)
 - [ ] Add Tests
 - [ ] Add CICD (for tests/linting)

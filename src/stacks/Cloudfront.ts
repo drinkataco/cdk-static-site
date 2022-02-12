@@ -6,6 +6,7 @@ import {
   AllowedMethods,
   Distribution,
   ErrorResponse,
+  GeoRestriction,
   OriginAccessIdentity,
   PriceClass,
   SecurityPolicyProtocol,
@@ -37,13 +38,15 @@ interface CloudfrontStackProps extends StackProps {
   allowedMethods?: AllowedMethods;
   /** The bucket we have previously created */
   bucket: Bucket;
+  /** Default root object */
+  defaultRootObject?: string;
+  /** Countries to deny access */
+  denyGeo?: Array<string>,
   /**
    * DNS information if setting up a custom domain
    * This could include hosted zone, certificate, and dns record information
    */
   dns?: T.CloudfrontDns;
-  /** Default root object */
-  defaultRootObject?: string;
   /** Objects to serve for specific error codes */
   errorResponses?: T.HttpErrorObject;
   /** whether to log requests to cloudfront */
@@ -196,6 +199,8 @@ class CloudfrontStack extends Stack {
       enableLogging: this.props.enableLogging,
       /** Objects to respond with on error codes */
       errorResponses,
+      /** Geo Restrictions */
+      geoRestriction: GeoRestriction.denylist(...(this.props.denyGeo || [])),
       /**
        * The Price Class for the distribution. By default deployed to ALL edge locations, but
        *  we might want to cheap on this

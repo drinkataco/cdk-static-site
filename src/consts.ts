@@ -64,6 +64,8 @@ export const CLOUDFRONT_ERROR_RESPONSES: T.HttpErrorObject = stringToObject(
   process.env.CLOUDFRONT_ERROR_RESPONSES,
 );
 
+export const CLOUDFRONT_GEO_DENYLIST: Array<string> = (process.env.CLOUDFRONT_GEO_DENYLIST || '').split(',');
+
 export const CLOUDFRONT_LOGGING = !!process.env.CLOUDFRONT_LOGGING;
 
 export const CLOUDFRONT_PRICE_CLASS: PriceClass = PriceClass[

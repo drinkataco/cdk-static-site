@@ -11,7 +11,6 @@ declare global {
       CLOUDFRONT_PRICE_CLASS?: string;
       CLOUDFRONT_ROOT_OBJECT?: string;
       CLOUDFRONT_LOGGING?: number;
-      CLOUDFRONT_GEO_ALLOWLIST?: string;
       CLOUDFRONT_GEO_DENYLIST?: string;
       CLOUDFRONT_ALLOWED_METHODS?: string;
       CERTIFICATE_ARN?: string,

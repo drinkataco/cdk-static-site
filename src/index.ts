@@ -53,6 +53,7 @@ new CloudfrontStack(app, `${G.APP_NAME}-cloudfront`, {
   allowedMethods: G.CLOUDFRONT_ALLOWED_METHODS,
   bucket: S3.getBucket(),
   defaultRootObject: G.CLOUDFRONT_ROOT_OBJECT,
+  denyGeo: G.CLOUDFRONT_GEO_DENYLIST,
   dns,
   enableLogging: G.CLOUDFRONT_LOGGING,
   errorResponses: G.CLOUDFRONT_ERROR_RESPONSES,
