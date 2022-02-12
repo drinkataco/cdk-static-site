@@ -61,6 +61,7 @@ This repository is a working progress. Left to do before release is:
 - [x] s3 bucket name not required
 - [x] Allow no subdomain (just attach to root hosted zone if none supplied)
 - [x] ENV_FILE= support?
+- [ ] www too
 - [ ] Add Tests
 - [ ] Add CICD (for tests/linting)
 - [ ] issue etc templates

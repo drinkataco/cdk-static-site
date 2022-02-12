@@ -58,18 +58,28 @@ export const S3_FORCE_REMOVE = !!process.env.S3_FORCE_REMOVE;
 //
 // Cloudfront Config
 //
-export const CLOUDFRONT_ALLOWED_METHODS: AllowedMethods = AllowedMethods[process.env.CLOUDFRONT_ALLOWED_METHODS as keyof typeof AllowedMethods || 'ALLOW_ALL'];
+export const CLOUDFRONT_ALLOWED_METHODS: AllowedMethods =
+  AllowedMethods[
+    (process.env.CLOUDFRONT_ALLOWED_METHODS as keyof typeof AllowedMethods)
+      || 'ALLOW_ALL'
+  ];
 
 export const CLOUDFRONT_ERROR_RESPONSES: T.HttpErrorObject = stringToObject(
   process.env.CLOUDFRONT_ERROR_RESPONSES,
 );
 
-export const CLOUDFRONT_GEO_DENYLIST: Array<string> = (process.env.CLOUDFRONT_GEO_DENYLIST || '').split(',');
+export const CLOUDFRONT_GEO_DENYLIST: Array<string> = process.env
+  .CLOUDFRONT_GEO_DENYLIST
+  ? process.env.CLOUDFRONT_GEO_DENYLIST.split(',')
+  : [];
 
 export const CLOUDFRONT_LOGGING = !!process.env.CLOUDFRONT_LOGGING;
 
-export const CLOUDFRONT_PRICE_CLASS: PriceClass = PriceClass[
-  (process.env.CLOUDFRONT_PRICE_CLASS as keyof typeof PriceClass) || 'PRICE_CLASS_ALL'
-];
+export const CLOUDFRONT_PRICE_CLASS: PriceClass =
+  PriceClass[
+    (process.env.CLOUDFRONT_PRICE_CLASS as keyof typeof PriceClass)
+      || 'PRICE_CLASS_ALL'
+  ];
 
-export const CLOUDFRONT_ROOT_OBJECT = process.env.CLOUDFRONT_ROOT_OBJECT || 'index.html';
+export const CLOUDFRONT_ROOT_OBJECT =
+  process.env.CLOUDFRONT_ROOT_OBJECT || 'index.html';

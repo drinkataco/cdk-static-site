@@ -1,7 +1,5 @@
 import { Construct } from 'constructs';
-import {
-  CfnOutput, Stack, StackProps,
-} from 'aws-cdk-lib';
+import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import {
   AllowedMethods,
   Distribution,
@@ -41,7 +39,7 @@ interface CloudfrontStackProps extends StackProps {
   /** Default root object */
   defaultRootObject?: string;
   /** Countries to deny access */
-  denyGeo?: Array<string>,
+  denyGeo?: Array<string>;
   /**
    * DNS information if setting up a custom domain
    * This could include hosted zone, certificate, and dns record information
@@ -200,7 +198,9 @@ class CloudfrontStack extends Stack {
       /** Objects to respond with on error codes */
       errorResponses,
       /** Geo Restrictions */
-      geoRestriction: GeoRestriction.denylist(...(this.props.denyGeo || [])),
+      geoRestriction: this.props.denyGeo?.length
+        ? GeoRestriction.denylist(...this.props.denyGeo)
+        : undefined,
       /**
        * The Price Class for the distribution. By default deployed to ALL edge locations, but
        *  we might want to cheap on this
@@ -270,7 +270,6 @@ class CloudfrontStack extends Stack {
     });
 
     // Set full domain name
-    // TODO: handle no subdomain
     this.domainName = dns.hostedZoneDomainName;
     if (dns.subdomain) {
       this.domainName = `${dns.subdomain}.${dns.hostedZoneDomainName}`;
