@@ -5,6 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "cdk": "cdk",
+    "cdk:deploy": "npm run cdk -- deploy '*'",
+    "cdk:destroy": "npm run cdk -- destroy --all",
     "lint": "eslint ."
   },
   "author": "",
