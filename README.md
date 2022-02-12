@@ -12,7 +12,7 @@ See: [AWS Cloud Development Kit (CDK)](https://github.com/aws/aws-cdk)
 
 ### Environment Variables
 
-To get started you must set up a `.env` file. You can copy the [template](.env) and set out the minimum request to get started:
+To get started you must set up a `.env` file. You can copy the [template](.env.example) and set out the minimum request to get started:
 
 * `APP_NAME` - This is the name of your app and cloudformation template prefixes
 * `S3_BUCKET_NAME` - a unique name for a S3 bucket to be provisioned
@@ -58,16 +58,17 @@ However, you can configure a lot more options:
 
 This repository is a working progress. Left to do before release is:
 
-1. Test env vars
-1. README
-1. Cleanup (itags, types needed for enums? remove zod comments. address all todo)
-1. Add geo restrictions and http method
-1. Allow no subdomain (just attach to root hosted zone if none supplied)
-1. Add Tests
-1. Add CICD (for tests/linting)
-1. issue etc templates
-1. Publish
-1. Allow cloudfunctions or lambda@edge for 'index.html' problem
+- [x] Test env vars
+- [x] README
+- [ ] Cleanup (itags, types needed for enums? remove zod comments. address all todo)
+- [ ] Add geo restrictions and http method
+- [ ] Allow no subdomain (just attach to root hosted zone if none supplied)
+- [ ] Add Tests
+- [ ] Add CICD (for tests/linting)
+- [ ] issue etc templates
+- [ ] Publish
+- [ ] CORS testing
+- [ ] Allow cloudfunctions or lambda@edge for 'index.html' problem
 
 
 
