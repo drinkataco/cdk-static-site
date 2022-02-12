@@ -1,13 +1,13 @@
+import { Construct } from 'constructs';
 import {
   CfnOutput,
-  Construct,
   Stack,
   StackProps,
   RemovalPolicy,
-} from '@aws-cdk/core';
-import { OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
+} from 'aws-cdk-lib';
+import { OriginAccessIdentity } from 'aws-cdk-lib/aws-cloudfront';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 
 /**
  * Configurable options for stack as properties

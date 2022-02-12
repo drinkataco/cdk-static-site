@@ -1,7 +1,7 @@
 import {
   AllowedMethods,
   PriceClass,
-} from '@aws-cdk/aws-cloudfront';
+} from 'aws-cdk-lib/aws-cloudfront';
 import * as dotenv from 'dotenv';
 
 import * as T from './types';

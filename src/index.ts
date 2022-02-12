@@ -1,4 +1,4 @@
-import { App, StackProps, Tags } from '@aws-cdk/core';
+import { App, StackProps, Tags } from 'aws-cdk-lib';
 
 import * as G from './consts';
 import { Tags as TagMap, CloudfrontDns } from './types';

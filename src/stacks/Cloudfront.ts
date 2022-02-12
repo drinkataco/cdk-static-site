@@ -1,6 +1,7 @@
+import { Construct } from 'constructs';
 import {
-  CfnOutput, Construct, Stack, StackProps,
-} from '@aws-cdk/core';
+  CfnOutput, Stack, StackProps,
+} from 'aws-cdk-lib';
 import {
   AllowedMethods,
   Distribution,
@@ -9,22 +10,22 @@ import {
   PriceClass,
   SecurityPolicyProtocol,
   ViewerProtocolPolicy,
-} from '@aws-cdk/aws-cloudfront';
+} from 'aws-cdk-lib/aws-cloudfront';
 import {
   Certificate,
   DnsValidatedCertificate,
   ICertificate,
-} from '@aws-cdk/aws-certificatemanager';
-import { S3Origin } from '@aws-cdk/aws-cloudfront-origins';
+} from 'aws-cdk-lib/aws-certificatemanager';
+import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import {
   ARecord,
   AaaaRecord,
   HostedZone,
   IHostedZone,
   RecordTarget,
-} from '@aws-cdk/aws-route53';
-import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
-import { Bucket } from '@aws-cdk/aws-s3';
+} from 'aws-cdk-lib/aws-route53';
+import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
 
 import * as T from '../types';
 
