@@ -1,7 +1,8 @@
 /node_modules
 /cdk.out
 .env
+.env.*
+!.env.example
 /.build
 *.swp
-
 cdk.context.json
