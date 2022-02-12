@@ -8,7 +8,6 @@ import * as T from './types';
 
 dotenv.config();
 
-// Helper function to convert environment variable collections to key:value
 /**
  * Helper function to turn a collection of items in a string into an object
  *

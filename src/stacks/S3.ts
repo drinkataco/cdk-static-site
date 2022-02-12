@@ -15,16 +15,11 @@ interface S3StackProps extends StackProps {
   /** The name of our S3 Bucket */
   bucketName: string;
   /**
-   * The source information of our bucket (git repo or path)
+   * The source information of our bucket.
    */
-  // TODO: use zod.union below??
-  bucketSource?: {
-    path?: string;
-    // repo?: {
-    // gitUrl: string,
-    // buildCommand: string,
-    // buildPath: string,
-    // }
+  bucketSource: {
+    /** local path of files to upload to S3 */
+    path: string;
   };
   /**
    * Whether we want create a DANGEROUS force remove of our S3 bucket.
@@ -132,8 +127,6 @@ class S3Stack extends Stack {
         destinationBucket: this.getBucket(),
       });
     }
-
-    // TODO: or clone and build
   }
 }
 

@@ -30,6 +30,7 @@ import * as T from '../types';
  * Configurable options for stack as properties
  */
 interface CloudfrontStackProps extends StackProps {
+  /** Allowed HTTP methods to cloudfront */
   allowedMethods?: AllowedMethods;
   /** The bucket we have previously created */
   bucket: Bucket;
