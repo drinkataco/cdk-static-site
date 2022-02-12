@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv';
 
 import * as T from './types';
 
-dotenv.config();
+dotenv.config({ path: `${__dirname}/../${process.env.ENV_FILE || '.env'}` });
 
 /**
  * Helper function to turn a collection of items in a string into an object
