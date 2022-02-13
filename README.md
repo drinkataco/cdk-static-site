@@ -8,9 +8,7 @@ Its aim is to be highly configurable from ENV variables to allow reuse for any s
 
 See: [AWS Cloud Development Kit (CDK)](https://github.com/aws/aws-cdk)
 
-## Getting started
-
-### Environment Variables
+## Quick Start
 
 To get started you must set up a `.env` file. You can copy the [template](.env.example) and set out the minimum request to get started:
 
@@ -19,13 +17,19 @@ To get started you must set up a `.env` file. You can copy the [template](.env.e
 * `ROUTE53_HOSTED_ZONE_DOMAIN` - _(optional)_ the domain of hosted zone which you you want to attach an alias to.
 * `ROUTE53_SUBDOMAIN` _(optional)_ - the subdomain (record name) if you don't want to use the root of the hosted zone domain. This must already exist in Route53!
 
-That's as little as **two** required variables (or **three** for route53 support) to get started. By default the `.env` file on the root of the project will be used, but providing an alternative file before the deploy command through the `ENV_FILE=` variable (also relative to the project root) you can select an alternative.
+Ensure you have your [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) variables set up so that CDK can access your AWS account, then run:
 
-Make sure you have your AWS credentials set locally, such as an [AWS_PROFILE](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) environment variable so that you can publish to your AWS account.
+`npm run cdk:deploy`
 
-Then run `npm run cdk:deploy`! Alternatively to destroy, run `npm run cdk:destroy`.
+Alternatively, to destroy, run
 
-However, you can configure a lot more options:
+`npm run cdk:destroy`
+
+## Advanced Usage
+
+By default, the `.env` file is used on the root of the project. However, you can create multiple .env files, such as one with .env.site2. On deployment run `ENV_FILE=.env.site2 npm run cdk:deploy` to use this environment variable file.
+
+### Deployment Configuration
 
 #### Metadata
 
@@ -61,7 +65,6 @@ This repository is a working progress. Left to do before release is:
 - [x] s3 bucket name not required
 - [x] Allow no subdomain (just attach to root hosted zone if none supplied)
 - [x] ENV_FILE= support?
-- [ ] www too
 - [ ] Add Tests
 - [ ] Add CICD (for tests/linting)
 - [ ] issue etc templates
@@ -69,6 +72,7 @@ This repository is a working progress. Left to do before release is:
 - [ ] Publish
 - [ ] CORS testing
 - [ ] Allow cloudfunctions or lambda@edge for 'index.html' problem
+- [ ] Figure out www redirect
 
 
 

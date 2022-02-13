@@ -117,6 +117,9 @@ class CloudfrontStack extends Stack {
       new CfnOutput(this, `${this.id}-output-domain-name`, {
         value: this.getDomainName(),
       });
+      new CfnOutput(this, `${this.id}-output-certificate`, {
+        value: this.getCertificate().certificateArn,
+      });
     }
 
     // Create Cloudfront Distribution
@@ -132,10 +135,6 @@ class CloudfrontStack extends Stack {
     // Create DNS records to map cloudfront distribution URL to DNS Record
     if (this.props.dns) {
       this.createDnsRecords();
-
-      new CfnOutput(this, `${this.id}-output-certificate`, {
-        value: this.getCertificate().certificateArn,
-      });
     }
   }
 
