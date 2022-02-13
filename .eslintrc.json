@@ -1,7 +1,8 @@
 {
   "env": {
     "es2021": true,
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
@@ -22,7 +23,11 @@
     ],
     "jest/no-hooks": "off",
     "no-new": "off",
-    "operator-linebreak": ["error", "before", { "overrides": { "=": "after" } }],
+    "operator-linebreak": [
+      "error",
+      "before",
+      { "overrides": { "=": "after" } }
+    ],
     "prefer-destructuring": "off"
   },
   "ignorePatterns": ["node_modules/", "cdk.out/"]

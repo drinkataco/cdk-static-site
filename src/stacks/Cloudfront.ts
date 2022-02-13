@@ -7,7 +7,6 @@ import {
   GeoRestriction,
   OriginAccessIdentity,
   PriceClass,
-  SecurityPolicyProtocol,
   ViewerProtocolPolicy,
 } from 'aws-cdk-lib/aws-cloudfront';
 import {
@@ -53,8 +52,6 @@ interface CloudfrontStackProps extends StackProps {
   originAccessIdentity: OriginAccessIdentity;
   /** The price class of the distribution */
   priceClass?: PriceClass;
-  /** The security protocol for HTTPS */
-  securityProtocolMinimum?: SecurityPolicyProtocol;
 }
 
 /**
@@ -65,7 +62,6 @@ const defaultProps: Partial<CloudfrontStackProps> = {
   defaultRootObject: 'index.html',
   enableLogging: false,
   priceClass: PriceClass.PRICE_CLASS_ALL,
-  securityProtocolMinimum: SecurityPolicyProtocol.TLS_V1_2_2018,
 };
 
 /**
