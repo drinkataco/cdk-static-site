@@ -1,9 +1,9 @@
 import { App, StackProps, Tags } from 'aws-cdk-lib';
 
-import * as G from './consts';
-import { Tags as TagMap, CloudfrontDns } from './types';
-import CloudfrontStack from './stacks/Cloudfront';
-import S3Stack from './stacks/S3';
+import * as G from '../lib/consts';
+import { Tags as TagMap, CloudfrontDns } from '../lib/types';
+import CloudfrontStack from '../lib/stacks/Cloudfront';
+import S3Stack from '../lib/stacks/S3';
 
 const app = new App();
 

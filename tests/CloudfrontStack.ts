@@ -7,7 +7,7 @@ import {
 } from 'aws-cdk-lib/aws-cloudfront';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 
-import CloudfrontStack from './Cloudfront';
+import CloudfrontStack from '../lib/stacks/Cloudfront';
 
 describe('stack for Cloudfront', () => {
   it('synthesizes correctly for only required config', () => {
