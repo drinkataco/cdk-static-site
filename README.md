@@ -54,6 +54,10 @@ By default, the `.env` file is used on the root of the project. However, you can
 
 * `CERTICIATE_ARN` - an ARN of an already provisioned certificate to use for the domain alias if you don't want one to be auto provisioned
 
+## Preview
+
+See the sister project, [gatsby-typescript-scratch-boilerplate](https://github.com/drinkataco/gatsby-typescript-scratch-boilerplate) to see a preview of this repository deployed!
+
 ## TODO
 
 This repository is a working progress. Left to do before release is:
@@ -69,10 +73,9 @@ This repository is a working progress. Left to do before release is:
 - [ ] Add CICD (for tests/linting)
 - [ ] issue etc templates
 - [ ] update gatsby template to point here and vice versa
-- [ ] Publish
-- [ ] CORS testing
-- [ ] Allow cloudfunctions or lambda@edge for 'index.html' problem
-- [ ] Figure out www redirect
+- [ ] Allow cloudfunctions or lambda@edge
+  - [ ] index.html problem
+  - [ ] Figure out www redirect
 
 
 
