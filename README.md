@@ -69,11 +69,12 @@ This repository is a working progress. Left to do before release is:
 - [x] s3 bucket name not required
 - [x] Allow no subdomain (just attach to root hosted zone if none supplied)
 - [x] ENV_FILE= support?
-- [ ] Add Tests
+- [x] Add Tests
+  - [x] Cloudfront hostedzone lookup mock
+  - [ ] S3 stack test
 - [ ] Add CICD (for tests/linting)
 - [ ] issue etc templates
-- [ ] update gatsby template to point here and vice versa
-- [ ] Allow cloudfunctions or lambda@edge
+- [u] Allow cloudfunctions or lambda@edge
   - [ ] index.html problem
   - [ ] Figure out www redirect
 

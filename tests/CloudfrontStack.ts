@@ -9,6 +9,23 @@ import { Bucket } from 'aws-cdk-lib/aws-s3';
 
 import CloudfrontStack from '../lib/stacks/Cloudfront';
 
+/*
+ * Here we're mocking the HostedZone.fromLookup function.
+ * This is so we can mock a lookup and generate a template without actually requiring a resource to
+ *  exit
+ */
+jest.mock('aws-cdk-lib/aws-route53', () => ({
+  ...jest.requireActual('aws-cdk-lib/aws-route53'),
+  HostedZone: {
+    fromLookup: jest.fn().mockImplementationOnce((stack, id, props) => ({
+      hostedZoneArn: 'test',
+      hostedZoneId: id,
+      stack,
+      zoneName: props.domainName,
+    })),
+  },
+}));
+
 describe('stack for Cloudfront', () => {
   it('synthesizes correctly for only required config', () => {
     const app = new App();
@@ -87,26 +104,29 @@ describe('stack for Cloudfront', () => {
       bucket,
       defaultRootObject: 'entry.html',
       denyGeo: ['US', 'CN'],
-      // dns: {
-        // hostedZoneDomainName: 'example.org',
-        // subdomain: 'my-site',
-      // },
+      dns: {
+        hostedZoneDomainName: 'example.org',
+        subdomain: 'my-site',
+      },
       errorResponses: {
         404: '/error/404.html',
       },
       enableLogging: true,
       originAccessIdentity,
       priceClass: PriceClass.PRICE_CLASS_100,
+      env: {
+        account: process.env.CDK_DEFAULT_ACCOUNT,
+        region: process.env.CDK_DEFAULT_REGION,
+      },
     });
 
     const template = Template.fromStack(cloudfrontStack);
-
-    console.log(JSON.stringify(template));
 
     template.hasResourceProperties(
       'AWS::CloudFront::Distribution',
       Match.objectEquals({
         DistributionConfig: {
+          Aliases: ['my-site.example.org'],
           Comment: "Cloudfront destribution for S3 Bucket 'Bucket'",
           CustomErrorResponses: [
             {
@@ -156,6 +176,11 @@ describe('stack for Cloudfront', () => {
               Locations: ['US', 'CN'],
               RestrictionType: 'blacklist',
             },
+          },
+          ViewerCertificate: {
+            AcmCertificateArn: Match.anyValue(),
+            MinimumProtocolVersion: 'TLSv1.2_2021',
+            SslSupportMethod: 'sni-only',
           },
         },
       }),

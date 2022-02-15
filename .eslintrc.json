@@ -15,7 +15,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "jest"],
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",
@@ -30,5 +30,5 @@
     ],
     "prefer-destructuring": "off"
   },
-  "ignorePatterns": ["node_modules/", "cdk.out/"]
+  "ignorePatterns": ["node_modules/", "cdk.out/", "*.js"]
 }
