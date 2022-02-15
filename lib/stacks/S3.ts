@@ -63,8 +63,8 @@ class S3Stack extends Stack {
       ...props,
     };
 
-    this.originAccessIdentity = this.createOriginAccessIdentity();
     this.bucket = this.createBucket();
+    this.originAccessIdentity = this.createOriginAccessIdentity();
 
     new CfnOutput(this, `${this.id}-output-s3-oia`, {
       value: this.getOriginAccessIdentity().originAccessIdentityName,
@@ -79,7 +79,7 @@ class S3Stack extends Stack {
    * The bucket will NOT be publically accessible as per cloudformation defaults
    */
   private createBucket(): Bucket {
-    const bucket = new Bucket(this, `${this.id}-bucket`, {
+    return new Bucket(this, `${this.id}-bucket`, {
       /** The unique S3 bucket name */
       bucketName: this.props.bucketName,
       /**
@@ -96,19 +96,19 @@ class S3Stack extends Stack {
        */
       autoDeleteObjects: !!this.props.forceRemove,
     });
-
-    bucket.grantRead(this.getOriginAccessIdentity());
-
-    return bucket;
   }
 
   /**
    * Create Origin Access Identity for S3 Bucket and Cloudfront
    */
   private createOriginAccessIdentity(): OriginAccessIdentity {
-    return new OriginAccessIdentity(this, this.id, {
-      comment: `OriginAccessIdentity for S3 Bucket '${this.props.bucketName}'`,
+    const oai = new OriginAccessIdentity(this, this.id, {
+      comment: `OriginAccessIdentity for S3 Bucket '${this.getBucket().bucketName}'`,
     });
+
+    this.getBucket().grantRead(oai);
+
+    return oai;
   }
 
   /**
