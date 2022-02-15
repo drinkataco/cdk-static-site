@@ -77,14 +77,14 @@ describe('stack for S3', () => {
         Type: 'AWS::S3::Bucket',
         UpdateReplacePolicy: 'Delete',
         DeletionPolicy: 'Delete',
-                "Properties": {
-          "BucketName": "this-is-my-bucket",
-          "Tags": [
+        Properties: {
+          BucketName: 'this-is-my-bucket',
+          Tags: [
             {
-              "Key": "aws-cdk:auto-delete-objects",
-              "Value": "true"
-            }
-          ]
+              Key: 'aws-cdk:auto-delete-objects',
+              Value: 'true',
+            },
+          ],
         },
       }),
     );

@@ -1,5 +1,7 @@
 # Static Site Cloud Development Kit
 
+![Lint and Tests](https://github.com/drinkataco/cdk-static-site/actions/workflows/main.yml/badge.svg)
+
 This repositories purpose is to provision a Cloudfront distribution for an S3 bucket fronted by a Route53 DNS Record.
 
 ![Diagram](./assets/diagram.png)
@@ -58,25 +60,11 @@ By default, the `.env` file is used on the root of the project. However, you can
 
 See the sister project, [gatsby-typescript-scratch-boilerplate](https://github.com/drinkataco/gatsby-typescript-scratch-boilerplate) to see a preview of this repository deployed!
 
-## TODO
+## Todo
 
-This repository is a working progress. Left to do before release is:
+This repository is not production ready. To be production ready is must be able to serve a website in a predictable way. The following items are left to do to achieve this.
 
-- [x] Test env vars
-- [x] README
-- [x] Cleanup (itags, types needed for enums? remove zod comments. address all todo)
-- [x] Add geo restrictions and http method
-- [x] s3 bucket name not required
-- [x] Allow no subdomain (just attach to root hosted zone if none supplied)
-- [x] ENV_FILE= support?
-- [x] Add Tests
-  - [x] Cloudfront hostedzone lookup mock
-  - [ ] S3 stack test
-- [ ] Add CICD (for tests/linting)
-- [ ] issue etc templates
-- [u] Allow cloudfunctions or lambda@edge
-  - [ ] index.html problem
-  - [ ] Figure out www redirect
-
-
+- [ ] Allow cloudfunctions or lambda@edge
+  - [ ] index.html problem - Force directories to fetch a index.html (like the rootObject does)
+- [ ] Identify a way to support www (ROUTE53_USE_WWW/ROUTE53_REDIRECT_WWW) to create a www.\* A Record and redirect if needed.
 
