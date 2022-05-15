@@ -31,7 +31,7 @@ Alternatively, to destroy, run
 
 By default, the `.env` file is used on the root of the project. However, you can create multiple .env files, such as one with .env.site2. On deployment run `ENV_FILE=.env.site2 npm run cdk:deploy` to use this environment variable file.
 
-### Deployment Configuration
+### Extended Deployment Configuration
 
 #### Metadata
 
@@ -40,7 +40,17 @@ By default, the `.env` file is used on the root of the project. However, you can
 #### S3
 
 * `S3_BUCKET_NAME` - a unique name for a S3 bucket to be provisioned
+
 * `S3_FORCE_REMOVE` _(default: 0)_ - a numerical value (0 for false, 1 for true) to indicate whether the S3 bucket should be force emptied and deleted when stacks are destroyed. You will loose your data in this bucket if set to `1`.
+
+* `S3_CACHE_CONTROL` _(default: \*:public, max-age=0)_ -This is a list of glob patterns and cache control headers for S3 objects. By default, nothing is cached - but you'll probably want to set up caching by defining a rule (such as `\*.js`) and a cache-control header value (such as `public, max-age=31536000, immutable`). Separate multiple values with a pipe (`|`).
+  An example of a bunch of cache control headers for a gatsby site:
+
+  ```
+  S3_CACHE_CONTROL=*.html:public, max-age=0, must-revalidate|page-data/*:public, max-age=0, must-revalidate| chunk-map.json:public, max-age=0, must-revalidate|webpack.stats.json:public, max-age=0, must-revalidate|static/*:public, max-age=31536000, immutable|*.js:public, max-age=31536000, immutable|*.css:public, max-age=31536000, immutable|favicon.ico:public, max-age=2628000
+  ```
+
+  
 
 #### Cloudfront
 
