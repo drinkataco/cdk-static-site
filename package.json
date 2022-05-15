@@ -13,9 +13,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "aws-cdk": "^2.12.0",
-    "aws-cdk-lib": "^2.12.0",
-    "constructs": "^10.0.60",
+    "aws-cdk": "^2.24.1",
+    "aws-cdk-lib": "^2.24.1",
+    "constructs": "^10.1.7",
     "dotenv": "^16.0.0"
   },
   "devDependencies": {

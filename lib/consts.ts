@@ -55,6 +55,12 @@ export const S3_CONTENT_PATH = process.env.S3_CONTENT_PATH || '';
 
 export const S3_FORCE_REMOVE = !!process.env.S3_FORCE_REMOVE;
 
+export const S3_CACHE_CONTROL: T.GlobCacheControl = stringToObject(
+  process.env.S3_CACHE_CONTROL,
+  '|',
+  ':',
+);
+
 //
 // Cloudfront Config
 //

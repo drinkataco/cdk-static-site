@@ -7,7 +7,13 @@ import {
 } from 'aws-cdk-lib';
 import { OriginAccessIdentity } from 'aws-cdk-lib/aws-cloudfront';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
-import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
+import {
+  BucketDeployment,
+  CacheControl,
+  Source,
+} from 'aws-cdk-lib/aws-s3-deployment';
+
+import { GlobCacheControl } from '../types';
 
 /**
  * Configurable options for stack as properties
@@ -27,6 +33,11 @@ interface S3StackProps extends StackProps {
    * This will force delete all objects and the bucket
    */
   forceRemove?: boolean;
+  /**
+   * A key value pair of caching rules
+   * Where the KEY is a glob pattern, and the VALUE is a cach-control header value
+   */
+  objectCaching?: GlobCacheControl;
 }
 
 /**
@@ -130,9 +141,36 @@ class S3Stack extends Stack {
    */
   public deploy() {
     if (this.props.bucketSource?.path) {
-      new BucketDeployment(this, `${this.id}-bucket-deployment`, {
-        sources: [Source.asset(this.props.bucketSource.path)],
-        destinationBucket: this.getBucket(),
+      const cacheControl: GlobCacheControl = {
+        '*': 'public, no-cache',
+        ...this.props.objectCaching,
+      };
+
+      Object.keys(cacheControl).forEach((glob: string) => {
+        const defaultCache = (glob === '*');
+
+        // Two modes:
+        //  - include everything, except for those with specific definitions
+        //  - include the current pattern, exclude everything else
+        const match = defaultCache
+          ? ({
+            exclude: Object.keys(cacheControl).filter((k: string) => k !== glob),
+          })
+          : ({
+            exclude: ['*'],
+            include: [glob],
+          });
+
+        new BucketDeployment(this, `${this.id}-bucket-deployment-${glob}`, {
+          sources: [
+            Source.asset(this.props.bucketSource.path),
+          ],
+          ...match,
+          destinationBucket: this.getBucket(),
+          cacheControl: [CacheControl.fromString(cacheControl[glob])],
+          // We want to prune on the initial default upload only
+          prune: defaultCache && this.props.forceRemove,
+        });
       });
     }
   }

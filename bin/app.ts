@@ -34,6 +34,7 @@ const S3 = new S3Stack(app, `${G.APP_NAME}-s3`, {
   bucketName: G.S3_BUCKET_NAME,
   bucketSource: { path: G.S3_CONTENT_PATH },
   forceRemove: G.S3_FORCE_REMOVE,
+  objectCaching: G.S3_CACHE_CONTROL,
 });
 
 S3.deploy();
