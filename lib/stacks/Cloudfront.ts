@@ -4,6 +4,10 @@ import {
   AllowedMethods,
   Distribution,
   ErrorResponse,
+  Function,
+  FunctionAssociation,
+  FunctionCode,
+  FunctionEventType,
   GeoRestriction,
   OriginAccessIdentity,
   PriceClass,
@@ -48,6 +52,13 @@ interface CloudfrontStackProps extends StackProps {
   errorResponses?: T.HttpErrorObject;
   /** whether to log requests to cloudfront */
   enableLogging?: boolean;
+  /** cloudfront functions */
+  functions?: {
+    /** list of request code directories */
+    request: string[];
+    /** list of response code directories */
+    response: string[];
+  };
   /** The buckets OAI we have previously created */
   originAccessIdentity: OriginAccessIdentity;
   /** The price class of the distribution */
@@ -178,6 +189,8 @@ class CloudfrontStack extends Stack {
         allowedMethods: this.props.allowedMethods,
         /** We will enable compression by default */
         compress: true,
+        /** Cloudfront function associations */
+        functionAssociations: this.createFunctionAssociations(),
         /** The origin is default as an S3 Bucket */
         origin: new S3Origin(this.props.bucket, {
           /** We will apply the OAI so Cloudfront can read it */
@@ -223,6 +236,41 @@ class CloudfrontStack extends Stack {
       target,
       zone: this.getHostedZone(),
     });
+  }
+
+  /**
+   * Create Cloudfront Function Associations
+   *
+   * @returns List of function associations
+   */
+  public createFunctionAssociations(): Array<FunctionAssociation> {
+    /**
+     * Anonymous function to make function association definition
+     *
+     * @param path - The path (absolute or project relative) of function
+     * @param eventType - the function event type
+     * @returns function Associations
+     */
+    const makeFunctionAssociation = (
+      path: string,
+      eventType: FunctionEventType,
+    ): FunctionAssociation => ({
+      function: new Function(this, `${this.id}-cloudfront-function-${path}`, {
+        code: FunctionCode.fromFile({
+          filePath: path[0] === '/' ? path : `${__dirname}/../../${path}`,
+        }),
+      }),
+      eventType,
+    });
+
+    return [
+      ...(this.props.functions?.request || []).map(
+        (path: string) => makeFunctionAssociation(path, FunctionEventType.VIEWER_REQUEST),
+      ),
+      ...(this.props.functions?.response || []).map(
+        (path: string) => makeFunctionAssociation(path, FunctionEventType.VIEWER_RESPONSE),
+      ),
+    ];
   }
 
   /**
