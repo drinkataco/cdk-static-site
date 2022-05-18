@@ -43,14 +43,12 @@ By default, the `.env` file is used on the root of the project. However, you can
 
 * `S3_FORCE_REMOVE` _(default: 0)_ - a numerical value (0 for false, 1 for true) to indicate whether the S3 bucket should be force emptied and deleted when stacks are destroyed. You will loose your data in this bucket if set to `1`.
 
-* `S3_CACHE_CONTROL` _(default: \*:public, max-age=0)_ -This is a list of glob patterns and cache control headers for S3 objects. By default, nothing is cached - but you'll probably want to set up caching by defining a rule (such as `\*.js`) and a cache-control header value (such as `public, max-age=31536000, immutable`). Separate multiple values with a pipe (`|`).
+* `S3_CACHE_CONTROL` _(default: \*:public, max-age=0)_ -This is a list of glob patterns and cache control headers for S3 objects. By default, nothing is cached - but you'll probably want to set up caching by defining a rule (such as `*.js`) and a cache-control header value (such as `public, max-age=31536000, immutable`). Separate multiple values with a pipe (`|`).
   An example of a bunch of cache control headers for a gatsby site:
 
   ```
   S3_CACHE_CONTROL=*.html:public, max-age=0, must-revalidate|page-data/*:public, max-age=0, must-revalidate| chunk-map.json:public, max-age=0, must-revalidate|webpack.stats.json:public, max-age=0, must-revalidate|static/*:public, max-age=31536000, immutable|*.js:public, max-age=31536000, immutable|*.css:public, max-age=31536000, immutable|favicon.ico:public, max-age=2628000
   ```
-
-  
 
 #### Cloudfront
 
@@ -61,6 +59,8 @@ By default, the `.env` file is used on the root of the project. However, you can
 * `CLOUDFRONT_LOGGING` _(default: 0)_ - a numerical value (0 for false, 1 for true) to indicate whether logging should be enabled for cloudfront
 * `CLOUDFRONT_PRICE_CLASS` _(default: ALL)_ - Price Class of Cloudfront Distribution. Enum value defined [here](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_cloudfront.PriceClass.html)
 * `CLOUDFRONT_ROOT_OBJECT` _(default: index.html)_ - default root object of distribution
+* `CLOUDFRONT_FUNCTIONS_REQUEST` - a comma separated list of [cloudfront functions](https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale/) for requests. This directory can be absolute, or relative to the project folder. An example request function (for adding index.html to directory requests) is [provided](./cloudfront-functions/indexhtml.js). Set `CLOUDFRONT_FUNCTIONS_REQUEST=cloudfront-functions/indexhtml.js` to use it.
+* `CLOUDFRONT_FUNCTIONS_RESPONSE` - a comma separated list of [cloudfront functions](https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale/) for responses. This directory can be absolute, or relative to the project folder. An example response function (for adding generic security headers) is [provided](./cloudfront-functions/securityheaders.js). Set `CLOUDFRONT_FUNCTIONS_RESPONSE=cloudfront-functions/securityheaders.js` to use it.
 
 ##### Route53 and Certificate Manager
 
@@ -69,12 +69,4 @@ By default, the `.env` file is used on the root of the project. However, you can
 ## Preview
 
 See the sister project, [gatsby-typescript-scratch-boilerplate](https://github.com/drinkataco/gatsby-typescript-scratch-boilerplate) to see a preview of this repository deployed!
-
-## Todo
-
-This repository is not production ready. To be production ready is must be able to serve a website in a predictable way. The following items are left to do to achieve this.
-
-- [ ] Allow cloudfunctions or lambda@edge
-  - [ ] index.html problem - Force directories to fetch a index.html (like the rootObject does)
-- [ ] Identify a way to support www (ROUTE53_USE_WWW/ROUTE53_REDIRECT_WWW) to create a www.\* A Record and redirect if needed.
 

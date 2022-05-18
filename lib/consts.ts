@@ -89,3 +89,13 @@ export const CLOUDFRONT_PRICE_CLASS: PriceClass =
 
 export const CLOUDFRONT_ROOT_OBJECT =
   process.env.CLOUDFRONT_ROOT_OBJECT || 'index.html';
+
+export const CLOUDFRONT_FUNCTIONS_REQUEST: Array<string> = process.env
+  .CLOUDFRONT_FUNCTIONS_REQUEST
+  ? process.env.CLOUDFRONT_FUNCTIONS_REQUEST.split(',')
+  : [];
+
+export const CLOUDFRONT_FUNCTIONS_RESPONSE: Array<string> = process.env
+  .CLOUDFRONT_FUNCTIONS_RESPONSE
+  ? process.env.CLOUDFRONT_FUNCTIONS_RESPONSE.split(',')
+  : [];

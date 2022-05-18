@@ -9,6 +9,7 @@ import { OriginAccessIdentity } from 'aws-cdk-lib/aws-cloudfront';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import {
   BucketDeployment,
+  BucketDeploymentProps,
   CacheControl,
   Source,
 } from 'aws-cdk-lib/aws-s3-deployment';
@@ -152,7 +153,7 @@ class S3Stack extends Stack {
         // Two modes:
         //  - include everything, except for those with specific definitions
         //  - include the current pattern, exclude everything else
-        const match = defaultCache
+        const match: Partial<BucketDeploymentProps> = defaultCache
           ? ({
             exclude: Object.keys(cacheControl).filter((k: string) => k !== glob),
           })
