@@ -4,7 +4,7 @@ import {
   AllowedMethods,
   Distribution,
   ErrorResponse,
-  Function,
+  Function as CloudfrontFunction,
   FunctionAssociation,
   FunctionCode,
   FunctionEventType,
@@ -54,10 +54,10 @@ interface CloudfrontStackProps extends StackProps {
   enableLogging?: boolean;
   /** cloudfront functions */
   functions?: {
-    /** list of request code directories */
-    request: string[];
-    /** list of response code directories */
-    response: string[];
+    /** viewer request function */
+    viewerRequest: string;
+    /** viewer response function */
+    viewerResponse: string;
   };
   /** The buckets OAI we have previously created */
   originAccessIdentity: OriginAccessIdentity;
@@ -255,22 +255,37 @@ class CloudfrontStack extends Stack {
       path: string,
       eventType: FunctionEventType,
     ): FunctionAssociation => ({
-      function: new Function(this, `${this.id}-cloudfront-function-${path}`, {
-        code: FunctionCode.fromFile({
-          filePath: path[0] === '/' ? path : `${__dirname}/../../${path}`,
-        }),
-      }),
+      function: new CloudfrontFunction(
+        this,
+        `${this.id}-cloudfront-function-${path}`,
+        {
+          code: FunctionCode.fromFile({
+            filePath: path[0] === '/' ? path : `${__dirname}/../../${path}`,
+          }),
+        },
+      ),
       eventType,
     });
 
-    return [
-      ...(this.props.functions?.request || []).map(
-        (path: string) => makeFunctionAssociation(path, FunctionEventType.VIEWER_REQUEST),
-      ),
-      ...(this.props.functions?.response || []).map(
-        (path: string) => makeFunctionAssociation(path, FunctionEventType.VIEWER_RESPONSE),
-      ),
-    ];
+    const functions: Array<FunctionAssociation> = [];
+    if (this.props.functions?.viewerRequest) {
+      functions.push(
+        makeFunctionAssociation(
+          this.props.functions.viewerRequest,
+          FunctionEventType.VIEWER_REQUEST,
+        ),
+      );
+    }
+    if (this.props.functions?.viewerResponse) {
+      functions.push(
+        makeFunctionAssociation(
+          this.props.functions.viewerResponse,
+          FunctionEventType.VIEWER_RESPONSE,
+        ),
+      );
+    }
+
+    return functions;
   }
 
   /**

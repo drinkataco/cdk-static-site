@@ -59,8 +59,8 @@ new CloudfrontStack(app, `${G.APP_NAME}-cloudfront`, {
   enableLogging: G.CLOUDFRONT_LOGGING,
   errorResponses: G.CLOUDFRONT_ERROR_RESPONSES,
   functions: {
-    request: G.CLOUDFRONT_FUNCTIONS_REQUEST,
-    response: G.CLOUDFRONT_FUNCTIONS_RESPONSE,
+    viewerRequest: G.CLOUDFRONT_FUNCTIONS_REQUEST,
+    viewerResponse: G.CLOUDFRONT_FUNCTIONS_RESPONSE,
   },
   originAccessIdentity: S3.getOriginAccessIdentity(),
   priceClass: G.CLOUDFRONT_PRICE_CLASS,
