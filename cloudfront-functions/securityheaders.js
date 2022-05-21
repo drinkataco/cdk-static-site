@@ -1,3 +1,9 @@
+/**
+ * Adds some default security headers to every request
+ *
+ * @param {Object} event - The response event
+ * @returns {Object} The modified response event
+ */
 function handler(event) {
   var response = event.response;
   var headers = response.headers;

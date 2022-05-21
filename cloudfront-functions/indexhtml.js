@@ -1,3 +1,9 @@
+/**
+ * Takes a request without a file name and adds index.html to it
+ *
+ * @param {Object} event - The request event
+ * @returns {Object} The modified request event
+ */
 function handler(event) {
   var request = event.request;
   var uri = request.uri;
