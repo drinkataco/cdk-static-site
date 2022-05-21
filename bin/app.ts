@@ -5,6 +5,10 @@ import { Tags as TagMap, CloudfrontDns } from '../lib/types';
 import CloudfrontStack from '../lib/stacks/Cloudfront';
 import S3Stack from '../lib/stacks/S3';
 
+if (!G.APP_NAME) {
+  throw Error('Please set an APP_NAME for your project');
+}
+
 const app = new App();
 
 // Default props for our stacks
