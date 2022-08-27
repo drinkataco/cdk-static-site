@@ -76,7 +76,7 @@ docker run --rm \
   --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
   --env AWS_DEFAULT_REGION=eu-west-1 \
   --volume /path/to/your/content:/srv \ # path of your content, to the /srv mount point
-  drinkataco/cdk-static-site
+  $(docker build -q .)
 ```
 
 This docker container runs the deployment based on the supplied env file. The static content variable, however, is ignored (S3_CONTENT_PATH) and always set to /srv - which is mounted to the container.
