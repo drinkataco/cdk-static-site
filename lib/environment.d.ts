@@ -15,7 +15,8 @@ declare global {
       ROUTE53_HOSTED_ZONE_DOMAIN?: string;
       ROUTE53_SUBDOMAIN?: string;
       S3_BUCKET_NAME?: string;
-      S3_CONTENT_PATH: string;
+      S3_CONTENT_PATH?: string;
+      DOCKER_S3_CONTENT_PATH?: string;
       S3_FORCE_REMOVE?: number;
       S3_CACHE_CONTROL?: string;
       TAGS?: string;

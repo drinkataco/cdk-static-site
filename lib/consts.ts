@@ -51,7 +51,8 @@ export const ROUTE53_SUBDOMAIN = process.env.ROUTE53_SUBDOMAIN;
 //
 export const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
-export const S3_CONTENT_PATH = process.env.S3_CONTENT_PATH || '';
+// For docker contexts, we always overwrite the content path and skip the S3_CONTENT_PATH value
+export const S3_CONTENT_PATH = process.env.DOCKER_S3_CONTENT_PATH || process.env.S3_CONTENT_PATH || '';
 
 export const S3_FORCE_REMOVE = !!process.env.S3_FORCE_REMOVE;
 
