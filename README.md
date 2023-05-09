@@ -2,7 +2,7 @@
 
 ![Lint and Tests](https://github.com/drinkataco/cdk-static-site/actions/workflows/main.yml/badge.svg)
 
-This repositories purpose is to provision a Cloudfront distribution for an S3 bucket fronted by a Route53 DNS Record.
+This repositories purpose is to provision a Cloudfront distribution for an S3 bucket fronted by .
 
 ![Diagram](./assets/diagram.png)
 
@@ -18,8 +18,6 @@ To build, create a `.env` file with the default configuration needed (you can co
 
 - `APP_NAME` - This is the name of your app and is used cloudformation template prefixes
 - `S3_CONTENT_PATH` - local path to your static site files. This is *not required* if running from docker, as the mount point will be used. View the [docker instructions](#Docker) for more information.
-- `ROUTE53_HOSTED_ZONE_DOMAIN` - _(optional)_ the domain of hosted zone which you you want to attach an alias to.
-- `ROUTE53_SUBDOMAIN` _(optional)_ - the subdomain (record name) if you don't want to use the root of the hosted zone domain. This must already exist in Route53!
 
 Ensure you have your [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) variables set up so that CDK can access your AWS account, then run:
 
