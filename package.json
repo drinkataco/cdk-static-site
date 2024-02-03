@@ -13,10 +13,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "aws-cdk": "^2.25.0",
-    "aws-cdk-lib": "^2.25.0",
-    "constructs": "^10.1.13",
-    "dotenv": "^16.0.0"
+    "aws-cdk": "^2.126.0",
+    "aws-cdk-lib": "^2.126.0",
+    "constructs": "^10.3.0",
+    "dotenv": "^16.4.1"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
